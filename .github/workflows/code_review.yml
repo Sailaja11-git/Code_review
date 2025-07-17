@@ -3,14 +3,14 @@ name: Code Review GPT
 on:
   pull_request:
     branches:
-      - main  # Change to your default branch if different
+      - main
 
 jobs:
   review:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repo
         uses: actions/checkout@v3
 
       - name: Set up Python
@@ -18,15 +18,18 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install CodeReviewGPT
+      - name: Install dependencies
         run: |
-          pip install codereviewgpt-cli  # Replace if you're using a custom script
+          pip install -r requirements.txt  # If you have it
+          pip install transformers         # Example if needed
+          pip install -U accelerate
 
       - name: Run CodeReviewGPT
         run: |
-          codereviewgpt-cli --path ./ --output review_report.md
+          python code_review.py --path ./ --output review_report.md
 
-      - name: Comment on PR with Review Report
-        uses: marocchino/sticky-pull-request-comment@v2
+      - name: Upload review report
+        uses: actions/upload-artifact@v3
         with:
+          name: code-review-report
           path: review_report.md
