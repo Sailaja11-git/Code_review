@@ -30,3 +30,9 @@ jobs:
       with:
         name: ai-review-report
         path: review_report.md
+	
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: code-review-report
+        path: review_report.md
