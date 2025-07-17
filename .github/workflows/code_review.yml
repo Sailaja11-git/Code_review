@@ -25,7 +25,7 @@ jobs:
 
       - name: Run CodeReviewGPT
         run: |
-          python code_review.py --path ./ --output review_report.md
+          python Code.py --path ./ --output review_report.md
 
       - name: Upload review report
         uses: actions/upload-artifact@v4
