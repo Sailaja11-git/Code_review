@@ -23,7 +23,7 @@ jobs:
 
     - name: Run AI Code Review
       run: |
-        python Code.py --path ./Code.py --output review_report.md
+        python Code.py --path ./Code.py --output review_report.md 
 
     - name: Upload Review Report
       uses: actions/upload-artifact@v4
