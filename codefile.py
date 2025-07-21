@@ -7,7 +7,7 @@ try:
     code = open("Code.py").read()
 
     # For now, simulate a review (replace with LLM later)
-    review = f"# Code Review for {"Code.py"}\n\n"
+    review = "#Code Review for {Code.py}\n\n"
     review += " Syntax seems valid.\n\n"
     review += "️ No deep review yet.\n"
 
