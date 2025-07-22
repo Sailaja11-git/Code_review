@@ -61,7 +61,7 @@ Return your response in the following format:
 
 End your response clearly without repeating sections or extraneous text.
 """
-    response = generator(prompt, max_new_tokens=1024, do_sample=False)[0]["generated_text"]
+    response = generator(prompt, max_new_tokens=2048, do_sample=False)[0]["generated_text"]
     return response.replace(prompt, "").strip()
 def check_syntax(code):
     try:
