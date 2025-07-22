@@ -8,35 +8,29 @@ def generate_review(code):
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForCausalLM.from_pretrained(model_name)
     max_input_tokens = 1500
-    # max_output_tokens = 1024  # for final output, depends on model limit
+    max_output_tokens = 1024  # for final output, depends on model limit
     generator = pipeline("text-generation", model=model, tokenizer=tokenizer, device_map="auto", truncation=True)
 
     prompt = f"""
-    You are an expert Python developer. Review the code below and respond using markdown headers for each section:
-
-    ### 1. Syntax Errors
-    List any syntax issues with line numbers and explanations.
-
-    ### 2. Code Explanation
-    Describe the purpose and logic of the code.
-
-    ### 3. Bugs and Issues
-    List all potential bugs, logical errors, and edge cases.
-
-    ### 4. Suggestions and Improvements
-    Suggest improvements for readability, performance, style (PEP8), error handling, etc.
-
-    ### 5. Improved Code
-    Provide fully rewritten code with all improvements and proper docstrings.
-
-    ### 6. Unit Tests
-    Generate `unittest` test cases to cover normal and edge cases.
-
-    Respond in this exact order, use markdown format, and include Python code blocks when needed.
+    Review the following Python code:
 
     ```python
     {code}
-"""
+
+       Please provide your review in the following structured format with explicit section headers:
+
+    Explanation:
+
+    Bugs or issues:
+
+    Improvements (style, readability, performance), including adding proper docstrings:
+
+    Improved Code (complete corrected code snippet):
+
+    Unit Tests (example test cases):
+
+    End your response clearly without repeating sections or extraneous text.
+    """
     input_tokens = tokenizer(prompt, return_tensors="pt")["input_ids"]
     if input_tokens.shape[1] > max_input_tokens:
         print("Warning: Input too long, truncating...")
