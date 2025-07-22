@@ -22,7 +22,7 @@ Explanation:
 
 Bugs or issues:
 
-Improvements (style, readability, performance):
+Improvements (style, readability, performance), including adding proper docstrings:
 
 Improved Code (complete corrected code snippet):
 
