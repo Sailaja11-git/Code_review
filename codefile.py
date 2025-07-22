@@ -11,32 +11,22 @@ def generate_review(code):
     generator = pipeline("text-generation", model=model, tokenizer=tokenizer, device_map="auto")
 
     prompt = f"""
-    You are an expert Python developer and code reviewer. Analyze the following Python function carefully.
+Review the following Python code:
 
-    Check for:
+```python
+{code}
 
-    1. **Syntax errors**.
-    2. **Function purpose vs. actual behavior** (semantic mismatch).
-    3. **Bugs, incorrect logic, or edge cases**.
-    4. **Naming consistency** (function/variables/docstrings).
-    5. **Proper error handling and type checks**.
-    6. **Improvements**: readability, performance, style (PEP8), and best practices.
-    7. **Improved version of the code** with complete docstrings and correct logic.
-    8. **Unit tests** to cover normal and edge cases.
+   Please provide your review in the following structured format with explicit section headers:
 
-    Only return the following clearly delimited sections:
-    - Explanation
-    - Bugs or Issues
-    - Improvements
-    - Improved Code
-    - Unit Tests
+Explanation:
 
-    End with: `✅ Code review completed successfully.`
+Bugs or issues:
 
-    Review this code:
+Improvements (style, readability, performance), including adding proper docstrings:
 
-    ```python
-    {code}
+Improved Code (complete corrected code snippet):
+
+Unit Tests (example test cases):
 
 End your response clearly without repeating sections or extraneous text.
 """
