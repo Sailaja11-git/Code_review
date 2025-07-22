@@ -25,32 +25,32 @@ def write_report(output_path, content):
         f.write(content)
 
 def main():
-    # Your code snippet hardcoded here
-    code = """def multiply(a, b):
-    if b == 0:
-        raise ValueError("Cannot divide by zero")
-    return a/b
-    """
+    # Hardcoded code snippet to review
+    code = '''
+def greet(name):
+    print("Hello, " + name + "!")
 
-    output_path = "review_report.md"
+greet("World")
+'''
 
     syntax_ok, syntax_err = check_syntax(code)
 
     if not syntax_ok:
         content = f"# Syntax Error Detected\n\n```\n{syntax_err}\n```\n\nAI review skipped due to syntax errors."
-        write_report(output_path, content)
-        return
+        write_report("review_report.md", content)
+        sys.exit(1)
 
     try:
         review_text = generate_review(code)
-        content = f"# AI Code Review Report\n\n No syntax errors detected.\n\n## AI Review:\n\n{review_text}"
-        write_report(output_path, content)
+        content = f"# AI Code Review Report\n\nNo syntax errors detected in the hardcoded code snippet.\n\n## 🔍 AI Review:\n\n{review_text}"
+        write_report("review_report.md", content)
+        print("Review completed. See 'review_report.md'")
     except Exception:
         tb = traceback.format_exc()
-        content = f"# Code Review Failed during AI review\n\n```\n{tb}\n```"
-        write_report(output_path,  content)
+        content = f"# Code Review Failed during AI analysis\n\n```\n{tb}\n```"
+        write_report("review_report.md", content)
+        print(" Code review failed. See 'review_report.md' for details.")
         sys.exit(1)
-
 
 if __name__ == "__main__":
     main()
