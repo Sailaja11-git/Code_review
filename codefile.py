@@ -7,8 +7,9 @@ def generate_review(code):
     model_name = "deepseek-ai/deepseek-coder-1.3b-instruct"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForCausalLM.from_pretrained(model_name)
-
-    generator = pipeline("text-generation", model=model, tokenizer=tokenizer, device_map="auto")
+    max_input_tokens = 1500
+    # max_output_tokens = 1024  # for final output, depends on model limit
+    generator = pipeline("text-generation", model=model, tokenizer=tokenizer, device_map="auto", truncation=True)
 
     prompt = f"""
     You are an expert Python developer. Review the code below. Follow these steps:
@@ -22,38 +23,22 @@ def generate_review(code):
 
     Only respond in this order. No repetition.
 
-Return your response in the following format:
-
----
-**Syntax Errors (if any):**
-
-[List syntax issues with line numbers and descriptions]
-
----
-**Code Explanation:**
-
-[Describe what the code does]
-
----
-**Issues / Bugs:**
-
-[List all problems found]
-
----
-**Suggestions & Improvements:**
-
-[Recommend fixes or enhancements]
-
----
-**Improved Code:**
-
-```python
-# [Cleaned, improved, fully functional code]
-
-Please generate each section only once, in the same order listed above. Do not repeat any sections, summaries, or statements. End your response cleanly.
+    ```python
+    {code}
 """
-    response = generator(prompt, max_new_tokens=2048, do_sample=False)[0]["generated_text"]
+    input_tokens = tokenizer(prompt, return_tensors="pt")["input_ids"]
+    if input_tokens.shape[1] > max_input_tokens:
+        print("Warning: Input too long, truncating...")
+
+    response = generator(
+        prompt,
+        max_new_tokens=1024,
+        truncation=True,
+        do_sample=False,
+        pad_token_id=tokenizer.eos_token_id
+    )[0]["generated_text"]
     return response.replace(prompt, "").strip()
+
 def check_syntax(code):
     try:
         compile(code, "<string>", "exec")
