@@ -7,43 +7,31 @@ def generate_review(code):
     model_name = "deepseek-ai/deepseek-coder-1.3b-instruct"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForCausalLM.from_pretrained(model_name)
-    max_input_tokens = 1500
-    max_output_tokens = 1024  # for final output, depends on model limit
-    generator = pipeline("text-generation", model=model, tokenizer=tokenizer, device_map="auto", truncation=True)
+
+    generator = pipeline("text-generation", model=model, tokenizer=tokenizer, device_map="auto")
 
     prompt = f"""
-    Review the following Python code:
+Review the following Python code:
 
-    ```python
-    {code}
+```python
+{code}
 
-       Please provide your review in the following structured format with explicit section headers:
+   Please provide your review in the following structured format with explicit section headers:
 
-    Explanation:
+Explanation:
 
-    Bugs or issues:
+Bugs or issues:
 
-    Improvements (style, readability, performance), including adding proper docstrings:
+Improvements (style, readability, performance), including adding proper docstrings:
 
-    Improved Code (complete corrected code snippet):
+Improved Code (complete corrected code snippet):
 
-    Unit Tests (example test cases):
+Unit Tests (example test cases):
 
-    End your response clearly without repeating sections or extraneous text.
-    """
-    input_tokens = tokenizer(prompt, return_tensors="pt")["input_ids"]
-    if input_tokens.shape[1] > max_input_tokens:
-        print("Warning: Input too long, truncating...")
-
-    response = generator(
-        prompt,
-        max_new_tokens=1024,
-        truncation=True,
-        do_sample=False,
-        pad_token_id=tokenizer.eos_token_id
-    )[0]["generated_text"]
+End your response clearly without repeating sections or extraneous text.
+"""
+    response = generator(prompt, max_new_tokens=1024, do_sample=False)[0]["generated_text"]
     return response.replace(prompt, "").strip()
-
 def check_syntax(code):
     try:
         compile(code, "<string>", "exec")
