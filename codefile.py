@@ -16,17 +16,48 @@ Review the following Python code:
 ```python
 {code}
 
-   Please provide your review in the following structured format with explicit section headers:
+You are an expert Python code reviewer. Review the following code thoroughly:
 
-Explanation:
+1. Detect and explain any syntax errors with line numbers.
+2. Explain the purpose and logic of the code.
+3. Identify bugs, logical errors, and edge cases that may break the code.
+4. Suggest improvements related to:
+   - Readability
+   - Performance
+   - Style (PEP8)
+   - Error handling
+   - Input validation
+5. Add proper docstrings to all functions and classes.
+6. Rewrite the code with all suggested improvements and fixes.
+7. Generate Python unit tests using `unittest` to cover normal and edge cases.
 
-Bugs or issues:
+Return your response in the following format:
 
-Improvements (style, readability, performance), including adding proper docstrings:
+---
+**Syntax Errors (if any):**
 
-Improved Code (complete corrected code snippet):
+[List syntax issues with line numbers and descriptions]
 
-Unit Tests (example test cases):
+---
+**Code Explanation:**
+
+[Describe what the code does]
+
+---
+**Issues / Bugs:**
+
+[List all problems found]
+
+---
+**Suggestions & Improvements:**
+
+[Recommend fixes or enhancements]
+
+---
+**Improved Code:**
+
+```python
+# [Cleaned, improved, fully functional code]
 
 End your response clearly without repeating sections or extraneous text.
 """
