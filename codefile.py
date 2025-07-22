@@ -1,33 +1,6 @@
 import sys
-import re
 import traceback
 from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
-
-
-def sanitize_review_output(text):
-    # Remove echoed code blocks if present
-    text = re.sub(r"```python[\s\S]+?```", "", text)
-
-    # Remove repeated headers
-    seen = set()
-    result = []
-    for line in text.splitlines():
-        stripped = line.strip()
-
-        # Skip duplicate markdown headers like ## or ###
-        if stripped.startswith("#"):
-            if stripped in seen or len(stripped) <= 2:
-                continue
-            seen.add(stripped)
-
-        # Skip empty lines
-        if stripped == "":
-            if result and result[-1].strip() == "":
-                continue
-
-        result.append(line)
-
-    return "\n".join(result).strip()
 
 
 def generate_review(code):
@@ -71,7 +44,7 @@ def main():
     # Hardcoded code snippet to review
     code = '''
 def multiply(a, b);
-    if b == 0:
+    if b == 0;
         raise ValueError("Cannot divide by zero")
     return a*b
 '''
@@ -79,7 +52,7 @@ def multiply(a, b);
     syntax_ok, syntax_err = check_syntax(code)
 
     try:
-        review_text = sanitize_review_output(generate_review(code))
+        review_text = generate_review(code)
     except Exception:
         tb = traceback.format_exc()
         review_text = f"Code review failed during AI analysis.\n\n```\n{tb}\n```"
@@ -102,6 +75,7 @@ def multiply(a, b);
 
     write_report("review_report.md", content)
     print("Review completed. See 'review_report.md'")
+
 
 
 if __name__ == "__main__":
