@@ -2,6 +2,7 @@ import sys
 import traceback
 from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
 
+
 def generate_review(code):
     model_name = "deepseek-ai/deepseek-coder-1.3b-instruct"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -9,9 +10,25 @@ def generate_review(code):
 
     generator = pipeline("text-generation", model=model, tokenizer=tokenizer, device_map="auto")
 
-    prompt = f"### Review the following Python code and provide detailed suggestions, bug fixes, and improvements:\n\n```python\n{code}\n```\n\n### Review:"
-    response = generator(prompt, max_new_tokens=512, do_sample=False)[0]["generated_text"]
+    prompt = f"""
+    ### Review the following Python code:
+    ```python
+    {code}
+    ```
+
+    ### Tasks:
+
+    1. Explain what the code does.
+    2. Identify any bugs or potential issues.
+    3. Suggest improvements (style, readability, performance).
+    4. Generate unit tests for this code.
+
+    ### Review:
+
+    """
+    response = generator(prompt, max_new_tokens=1024, do_sample=False)[0]["generated_text"]
     return response.replace(prompt, "").strip()
+
 
 def check_syntax(code):
     try:
@@ -20,9 +37,11 @@ def check_syntax(code):
     except SyntaxError as e:
         return False, f"{e.__class__.__name__}: {e}"
 
+
 def write_report(output_path, content):
     with open(output_path, "w") as f:
         f.write(content)
+
 
 def main():
     # Hardcoded code snippet to review
@@ -30,7 +49,7 @@ def main():
 def multiply(a, b);
     if b == 0:
         raise ValueError("Cannot divide by zero")
-    return a*b
+    return a / b
 '''
 
     syntax_ok, syntax_err = check_syntax(code)
@@ -51,6 +70,7 @@ def multiply(a, b);
         write_report("review_report.md", content)
         print(" Code review failed. See 'review_report.md' for details.")
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()
