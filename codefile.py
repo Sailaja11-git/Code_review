@@ -85,8 +85,18 @@ def clean_review_text(text):
     # Remove multiple blank lines to just one
     text = re.sub(r'\n\s*\n+', '\n\n', text)
 
-    # Strip leading/trailing whitespace
-    return text.strip()
+    # Detect repeated large blocks and keep only the first
+    # A heuristic: split text into paragraphs and keep unique ones
+    paragraphs = text.split('\n\n')
+    seen = set()
+    unique_paragraphs = []
+    for p in paragraphs:
+        if p.strip() not in seen:
+            unique_paragraphs.append(p)
+            seen.add(p.strip())
+    cleaned_text = '\n\n'.join(unique_paragraphs)
+
+    return cleaned_text.strip()
 
 if __name__ == "__main__":
     main()
