@@ -12,16 +12,27 @@ def generate_review(code):
     generator = pipeline("text-generation", model=model, tokenizer=tokenizer, device_map="auto", truncation=True)
 
     prompt = f"""
-    You are an expert Python developer. Review the code below. Follow these steps:
+    You are an expert Python developer. Review the code below and respond using markdown headers for each section:
 
-    1. Identify syntax errors (with line numbers).
-    2. Explain what the code does.
-    3. Point out bugs, edge cases, and suggest improvements (readability, performance, PEP8, error handling).
-    4. Add docstrings.
-    5. Rewrite the improved code.
-    6. Generate `unittest` cases.
+    ### 1. Syntax Errors
+    List any syntax issues with line numbers and explanations.
 
-    Only respond in this order. No repetition.
+    ### 2. Code Explanation
+    Describe the purpose and logic of the code.
+
+    ### 3. Bugs and Issues
+    List all potential bugs, logical errors, and edge cases.
+
+    ### 4. Suggestions and Improvements
+    Suggest improvements for readability, performance, style (PEP8), error handling, etc.
+
+    ### 5. Improved Code
+    Provide fully rewritten code with all improvements and proper docstrings.
+
+    ### 6. Unit Tests
+    Generate `unittest` test cases to cover normal and edge cases.
+
+    Respond in this exact order, use markdown format, and include Python code blocks when needed.
 
     ```python
     {code}
