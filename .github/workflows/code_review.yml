@@ -2,6 +2,9 @@ name: AI Code Review Report
 
 on:
   pull_request:
+    paths:
+      - '**.py'   # Run only if Python code files are changed
+      - '.github/workflows/**'  # Also run if workflow file changes
 
 jobs:
   review:
@@ -23,9 +26,15 @@ jobs:
 
     - name: Run AI Code Review
       run: |
-        python codefile.py --path codefile.py --output review_report.md
+        echo "## 🔍 AI Code Review Report" > review_report.md
+        if python codefile.py --path codefile.py --output review_report.md; then
+          echo "✅ Code review completed successfully." >> review_report.md
+        else
+          echo "❌ Code review script failed. See the above error." >> review_report.md
+        fi
 
-    - name: Upload Review Report
+    - name: Always Upload Review Report
+      if: always()
       uses: actions/upload-artifact@v4
       with:
         name: ai-review-report
