@@ -48,7 +48,7 @@ def main():
     except Exception:
         tb = traceback.format_exc()
         content = f"# Code Review Failed during AI review\n\n```\n{tb}\n```"
-        write_report(output_path, content)
+        write_report(output_path,  content)
         sys.exit(1)
 
 if __name__ == "__main__":
