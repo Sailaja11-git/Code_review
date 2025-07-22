@@ -11,25 +11,16 @@ def generate_review(code):
     generator = pipeline("text-generation", model=model, tokenizer=tokenizer, device_map="auto")
 
     prompt = f"""
-Review the following Python code:
+    You are an expert Python developer. Review the code below. Follow these steps:
 
-```python
-{code}
+    1. Identify syntax errors (with line numbers).
+    2. Explain what the code does.
+    3. Point out bugs, edge cases, and suggest improvements (readability, performance, PEP8, error handling).
+    4. Add docstrings.
+    5. Rewrite the improved code.
+    6. Generate `unittest` cases.
 
-You are an expert Python code reviewer. Review the following code thoroughly:
-
-1. Detect and explain any syntax errors with line numbers.
-2. Explain the purpose and logic of the code.
-3. Identify bugs, logical errors, and edge cases that may break the code.
-4. Suggest improvements related to:
-   - Readability
-   - Performance
-   - Style (PEP8)
-   - Error handling
-   - Input validation
-5. Add proper docstrings to all functions and classes.
-6. Rewrite the code with all suggested improvements and fixes.
-7. Generate Python unit tests using `unittest` to cover normal and edge cases.
+    Only respond in this order. No repetition.
 
 Return your response in the following format:
 
@@ -59,7 +50,7 @@ Return your response in the following format:
 ```python
 # [Cleaned, improved, fully functional code]
 
-End your response clearly without repeating sections or extraneous text.
+Please generate each section only once, in the same order listed above. Do not repeat any sections, summaries, or statements. End your response cleanly.
 """
     response = generator(prompt, max_new_tokens=2048, do_sample=False)[0]["generated_text"]
     return response.replace(prompt, "").strip()
