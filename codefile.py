@@ -1,27 +1,6 @@
-import re
 import sys
 import traceback
 from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
-
-
-def sanitize_review_output(text):
-    # Remove echoed code block
-    text = re.sub(r"```python[\s\S]+?```", "", text)
-
-    # Remove repeated section headers (e.g., multiple ### Suggestions)
-    seen_sections = set()
-    lines = text.splitlines()
-    cleaned_lines = []
-
-    for line in lines:
-        if line.strip().startswith("###"):
-            if line.strip() in seen_sections:
-                continue  # skip duplicate section
-            seen_sections.add(line.strip())
-        cleaned_lines.append(line)
-
-    return "\n".join(cleaned_lines).strip()
-
 
 def generate_review(code):
     model_name = "deepseek-ai/deepseek-coder-1.3b-instruct"
@@ -75,7 +54,7 @@ def multiply(a, b);
     syntax_ok, syntax_err = check_syntax(code)
 
     try:
-        review_text = sanitize_review_output(generate_review(code))
+        review_text = generate_review(code)
     except Exception:
         tb = traceback.format_exc()
         review_text = f"Code review failed during AI analysis.\n\n```\n{tb}\n```"
@@ -98,6 +77,7 @@ def multiply(a, b);
 
     write_report("review_report.md", content)
     print("Review completed. See 'review_report.md'")
+
 
 
 if __name__ == "__main__":
