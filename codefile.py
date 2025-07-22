@@ -51,5 +51,6 @@ def main():
         write_report(output_path,  content)
         sys.exit(1)
 
+
 if __name__ == "__main__":
     main()
