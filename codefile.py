@@ -49,27 +49,36 @@ def main():
 def multiply(a, b);
     if b == 0:
         raise ValueError("Cannot divide by zero")
-    return a / b
+    return a*b
 '''
 
     syntax_ok, syntax_err = check_syntax(code)
 
-    if not syntax_ok:
-        content = f"# Syntax Error Detected\n\n```\n{syntax_err}\n```\n\nAI review skipped due to syntax errors."
-        write_report("review_report.md", content)
-        sys.exit(1)
-
     try:
         review_text = generate_review(code)
-        content = f"# AI Code Review Report\n\nNo syntax errors detected in the hardcoded code snippet.\n\n## 🔍 AI Review:\n\n{review_text}"
-        write_report("review_report.md", content)
-        print("Review completed. See 'review_report.md'")
     except Exception:
         tb = traceback.format_exc()
-        content = f"# Code Review Failed during AI analysis\n\n```\n{tb}\n```"
-        write_report("review_report.md", content)
-        print(" Code review failed. See 'review_report.md' for details.")
-        sys.exit(1)
+        review_text = f"Code review failed during AI analysis.\n\n```\n{tb}\n```"
+
+    if not syntax_ok:
+        content = (
+            f"#  Syntax Error Detected\n\n"
+            f"**Code with syntax error:**\n\n```python\n{code}\n```\n\n"
+            f"**Error details:**\n\n```\n{syntax_err}\n```\n\n"
+            f"---\n\n"
+            f"## AI Review Output (including syntax errors):\n\n"
+            f"{review_text}"
+        )
+    else:
+        content = (
+            f"# No Syntax Errors Detected\n\n"
+            f"## AI Review:\n\n"
+            f"{review_text}"
+        )
+
+    write_report("review_report.md", content)
+    print("Review completed. See 'review_report.md'")
+
 
 
 if __name__ == "__main__":
