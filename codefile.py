@@ -21,6 +21,10 @@ Review the following Python code:
 Explanation:
 
 Bugs or issues:
+-Check for logical errors and exception handling
+-Detect if the function name, variable names, or comments/docstrings do not match the actual operation
+-Flag misleading names or comments
+-Highlight any potential runtime errors
 
 Improvements (style, readability, performance), including adding proper docstrings:
 
