@@ -55,6 +55,7 @@ def add(a, b);
     return a/b
 '''
 
+
     syntax_ok, syntax_err = check_syntax(code)
 
     try:
