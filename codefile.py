@@ -27,6 +27,17 @@ Improvements (style, readability, performance), including adding proper docstrin
 Improved Code (complete corrected code snippet):
 
 Unit Tests (example test cases):
+Please generate at least 5 diverse test cases covering:
+- Normal input values
+- Edge cases (e.g., zero, negative numbers)
+- Invalid input handling
+- Floating point behavior
+- Exception conditions
+- Include at least 3 test cases
+- Cover normal, edge, and exception cases
+
+
+Include them using Python's `unittest` framework or simple `assert` statements.
 
 End your response clearly without repeating sections or extraneous text.
 """
