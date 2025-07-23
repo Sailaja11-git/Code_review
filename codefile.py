@@ -15,10 +15,13 @@ Review the following Python code:
 
 ```python
 {code}
-
+'''
    Please provide your review in the following structured format with explicit section headers:
 
-Explanation what input code does:
+Explanation of what the input code does:
+
+-Describe clearly what the function claims to do based on its name and docstring (if any).
+-Then describe what it actually does based on the code logic.
 
 Bugs or issues:
 -Check for logical errors and exception handling
@@ -31,7 +34,8 @@ Improvements (style, readability, performance), including adding proper docstrin
 
 Improved Code (complete corrected and logically consistent code snippet):
 
-Explanation after improved code :
+Explanation after improved code:
+-Explain how the corrected code now behaves properly and aligns with its purpose.
 
 Unit Tests (example test cases):
 Please generate at least 5 diverse test cases covering:
