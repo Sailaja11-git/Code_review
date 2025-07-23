@@ -16,42 +16,49 @@ Review the following Python code:
 ```python
 {code}
 Please follow this strict format in your response:
+1. Syntax Check:
+If there are any syntax or structural errors, list them clearly.
 
-Check if the code has any syntax errors or structural issues. If yes, point them out clearly and continue reviewing the code assuming those are fixed.
+Then, assume you fixed them and continue reviewing.
 
-Clearly list all bugs or logical issues found in the code (e.g., wrong operations, misleading names, poor exception handling, etc.).
+2. Bugs or Issues:
+Point out logical mistakes, incorrect operations, exception handling issues.
 
-Suggest improvements for readability, maintainability, or performance, including:
+Mention if function or variable names don’t match their purpose.
 
-Adding docstrings
+Note misleading comments or documentation.
 
-Using better variable or function names
+Detect any potential runtime errors.
 
-Adding type hints
+3. Improvements:
+Suggest improvements for readability, maintainability, and performance.
 
-Any refactor recommendations
+Include missing or unclear docstrings and type hints.
 
-Then provide the Improved Code: corrected and complete, with all improvements applied (including docstrings).
+Suggest better naming and any required refactoring.
 
-Then provide Explanation of the corrected/improved code to help the developer understand.
+4. Improved Code:
+Provide the fully corrected version of the code.
 
-Then provide at least 5 unit tests in Python using unittest (or assert) to cover:
+Include complete docstrings for each function.
 
-Normal input
+Ensure code is ready for production.
 
-Edge cases
+5. Explanation:
+Explain how the improved code works.
 
-Invalid inputs
+Highlight how it resolves the issues found earlier.
 
-Floating-point behavior
+6. Unit Tests:
+Provide at least 5 test cases using Python unittest or assert statements.
 
-Error/exception scenarios
+Test normal input, edge cases, exceptions, and floating-point inputs.
 
-Don't skip bugs if any are found. If the code is perfect, say so and continue with explanations and tests.
+Ensure coverage of logic and error handling.
 
-End your response cleanly without repeating anything or adding extra headings.
+Please follow this structure strictly and don’t skip any section, even if code is valid. Always explain the reasoning behind your fixes.
 
-Start now.
+Begin your review now.
 """
     response = generator(prompt, max_new_tokens=1024, do_sample=False)[0]["generated_text"]
     return response.replace(prompt, "").strip()
