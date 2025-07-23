@@ -11,56 +11,93 @@ def generate_review(code):
     generator = pipeline("text-generation", model=model, tokenizer=tokenizer, device_map="auto")
 
     prompt = f"""
-    Review the following Python code:
+   
+Review the following Python code:
 
-    ```python
-    {code}
-    Please provide your review in the following structured format with explicit section headers:
+```python
+{code}
+````
 
-    Explanation of what the input code does:
+Please provide your review in the following structured format using hyphenated bullet points under each heading:
 
-    Describe clearly what the function claims to do based on its name and docstring (if any).
+---
 
-    Then describe what it actually does based on the code logic.
+# Syntax Error Detected (if any)
 
-    Bugs or issues:
+* If there is a syntax error, provide:
 
-    Check for logical errors and exception handling.
+  * The **exact error message**
+  * The **line of code** causing the issue
+  * A short **explanation** of what went wrong
 
-    If function name and operation mismatch, correct both consistently in improved code.
+---
 
-    Detect mismatch between function names, variable names, and the actual operations they perform.
+## Explanation of what the input code does:
 
-    Flag misleading names or comments.
+* Describe what the function is *intended* to do based on its name and docstring (if present).
+* Explain what the function actually *does* based on the code logic.
 
-    Highlight any potential runtime errors.
+---
 
-    Improvements (style, readability, performance), including adding proper docstrings:
+## Bugs or Issues:
 
-    Improved Code (complete corrected and logically consistent code snippet):
+* Point out any **syntax or logical errors**
+* Mention if the function name does not match what the function actually does.
+* Highlight any **misleading names, poor variable naming, or comments**
+* Flag **any potential runtime errors or unhandled edge cases**
 
-    Explanation after improved code:
+---
 
-    Explain how the corrected code now behaves properly and aligns with its purpose.
+## Improvements (style, readability, performance), including adding proper docstrings:
 
-    Unit Tests (example test cases):
-    Please generate at least 5 diverse test cases covering:
+* Suggest improvements for:
 
-    Normal input values
+  * Code clarity
+  * Naming conventions
+  * Exception handling
+  * Code efficiency
+  * Docstring quality
 
-    Edge cases (e.g., zero, negative numbers)
+---
 
-    Invalid input handling
+## Improved Code (complete corrected and logically consistent code snippet):
 
-    Floating point behavior
+* Provide the full improved version of the function with:
 
-    Exception conditions
+  * Corrected logic
+  * Proper variable names
+  * Docstrings explaining the function’s purpose, parameters, and return value
+  * Any necessary type checks and exception handling
 
-    Include at least 3 test cases
+---
 
-    Cover normal, edge, and exception cases
+## Explanation after Improved Code:
 
-    Include them using Python's unittest framework or simple assert statements.
+* Explain how the corrected code:
+
+  * Fixes the original problems
+  * Better aligns with its intended behavior
+  * Is more robust, readable, or maintainable
+
+
+Unit Tests (example test cases):
+Please generate at least 5 diverse test cases covering:
+
+Normal input values
+
+Edge cases (e.g., zero, negative numbers)
+
+Invalid input handling
+
+Floating point behavior
+
+Exception conditions
+
+Include at least 3 test cases
+
+Cover normal, edge, and exception cases
+
+Include them using Python's unittest framework or simple assert statements.
 
     End your response clearly without repeating sections or extraneous text.
     """
