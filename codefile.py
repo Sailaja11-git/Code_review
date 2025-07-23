@@ -22,7 +22,7 @@ Explanation:
 
 Bugs or issues:
 -Check for logical errors and exception handling
--Detect if the function name, variable names, or comments/docstrings do not match the actual operation
+-Detect mismatch between function names, variable names, and the actual operations they perform.
 -Flag misleading names or comments
 -Highlight any potential runtime errors
 
