@@ -15,8 +15,8 @@ Review the following Python code:
 
 ```python
 {code}
-'''
-   Please provide your review in the following structured format with explicit section headers:
+Please provide your review in the following structured format with explicit section headers:
+
 
 Explanation of what the input code does:
 
