@@ -11,27 +11,40 @@ def generate_review(code):
     generator = pipeline("text-generation", model=model, tokenizer=tokenizer, device_map="auto")
 
     prompt = f"""
-Review the following Python code:
+    Review the following Python code:
 
-```python
-{code}
+    ```python
+    {code}
 
-   Please provide your review in the following structured format with explicit section headers:
+    Please provide your review in the following structured format with explicit section headers:
 
-Explanation:
+    1. Syntax and Keyword Usage:
+       - Identify any syntax errors, incorrect or missing Python keywords,
+         or malformed statements (e.g., missing colons after function defs).
+       - Point out incorrect indentation or invalid Python constructs.
 
-Bugs or issues:
+    2. Explanation:
+       - Describe the purpose and logic of the code.
 
-Improvements (style, readability, performance), including adding proper docstrings:
+    3. Bugs or Issues:
+       - List any bugs, logical errors, or edge cases.
 
-Improved Code (complete corrected code snippet):
+    4. Improvements:
+       - Suggest improvements for readability, performance, style (PEP8), error handling.
+       - Include suggestions on variable naming and keyword usage.
 
-Unit Tests (example test cases):
+    5. Improved Code:
+       - Provide fully corrected code with all improvements and proper docstrings.
 
-End your response clearly without repeating sections or extraneous text.
-"""
+    6. Unit Tests:
+       - Generate example `unittest` cases to cover normal and edge cases.
+
+    End your response clearly without repeating sections or extraneous text.
+    """
     response = generator(prompt, max_new_tokens=1024, do_sample=False)[0]["generated_text"]
     return response.replace(prompt, "").strip()
+
+
 def check_syntax(code):
     try:
         compile(code, "<string>", "exec")
@@ -44,9 +57,10 @@ def write_report(output_path, content):
     with open(output_path, "w") as f:
         f.write(content)
 
+
 def main():
     code = '''
-def mul(a, b);
+def add(a, b);
     if b == 0:
         raise ValueError("Cannot divide by zero")
     return a/b
@@ -97,6 +111,7 @@ def clean_review_text(text):
     cleaned_text = '\n\n'.join(unique_paragraphs)
 
     return cleaned_text.strip()
+
 
 if __name__ == "__main__":
     main()
