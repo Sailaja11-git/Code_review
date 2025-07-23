@@ -15,58 +15,43 @@ Review the following Python code:
 
 ```python
 {code}
-Please provide your review in the following structured format using the following instructions:
+Please follow this strict format in your response:
 
-Explanation:
+Check if the code has any syntax errors or structural issues. If yes, point them out clearly and continue reviewing the code assuming those are fixed.
 
-Briefly explain what the code is intended to do.
+Clearly list all bugs or logical issues found in the code (e.g., wrong operations, misleading names, poor exception handling, etc.).
 
-Explain the logic and functionality as written, even if it contains mistakes.
+Suggest improvements for readability, maintainability, or performance, including:
 
-Bugs or Issues:
+Adding docstrings
 
-Clearly list all bugs, logical errors, and issues in the code.
+Using better variable or function names
 
-If mistakes exist, explain how they lead to incorrect behavior or potential runtime errors.
+Adding type hints
 
-Specifically check for:
+Any refactor recommendations
 
-Logical errors
+Then provide the Improved Code: corrected and complete, with all improvements applied (including docstrings).
 
-Missing or incorrect exception handling
+Then provide Explanation of the corrected/improved code to help the developer understand.
 
-Function or variable names that do not match the actual operations
+Then provide at least 5 unit tests in Python using unittest (or assert) to cover:
 
-Misleading comments or docstrings
+Normal input
 
-Any potential runtime failures or edge case problems
+Edge cases
 
-Improvements (Style, Readability, Performance):
+Invalid inputs
 
-Suggest improvements such as better naming, formatting, or efficiency.
+Floating-point behavior
 
-Include suggestions to add or correct docstrings.
+Error/exception scenarios
 
-Mention any structural enhancements like input validation or type hints if applicable.
+Don't skip bugs if any are found. If the code is perfect, say so and continue with explanations and tests.
 
-Improved Code (complete corrected code snippet):
+End your response cleanly without repeating anything or adding extra headings.
 
-Include complete corrected code with proper docstrings as per the improvements
-
-Unit Tests (example test cases):
-Please generate at least 5 diverse test cases covering:
-- Normal input values
-- Edge cases (e.g., zero, negative numbers)
-- Invalid input handling
-- Floating point behavior
-- Exception conditions
-- Include at least 3 test cases
-- Cover normal, edge, and exception cases
-
-
-Include them using Python's `unittest` framework or simple `assert` statements.
-
-End your response clearly without repeating sections or extraneous text.
+Start now.
 """
     response = generator(prompt, max_new_tokens=1024, do_sample=False)[0]["generated_text"]
     return response.replace(prompt, "").strip()
