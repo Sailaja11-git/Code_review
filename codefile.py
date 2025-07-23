@@ -11,36 +11,25 @@ def generate_review(code):
     generator = pipeline("text-generation", model=model, tokenizer=tokenizer, device_map="auto")
 
     prompt = f"""
-    Review the following Python code:
+Review the following Python code:
 
-    ```python
-    {code}
+```python
+{code}
 
-    Please provide your review in the following structured format with explicit section headers:
+   Please provide your review in the following structured format with explicit section headers:
 
-    1. Syntax and Keyword Usage:
-       - Identify any syntax errors, incorrect or missing Python keywords,
-         or malformed statements (e.g., missing colons after function defs).
-       - Point out incorrect indentation or invalid Python constructs.
+Explanation:
 
-    2. Explanation:
-       - Describe the purpose and logic of the code.
+Bugs or issues:
 
-    3. Bugs or Issues:
-       - List any bugs, logical errors, or edge cases.
+Improvements (style, readability, performance), including adding proper docstrings:
 
-    4. Improvements:
-       - Suggest improvements for readability, performance, style (PEP8), error handling.
-       - Include suggestions on variable naming and keyword usage.
+Improved Code (complete corrected code snippet):
 
-    5. Improved Code:
-       - Provide fully corrected code with all improvements and proper docstrings.
+Unit Tests (example test cases):
 
-    6. Unit Tests:
-       - Generate example `unittest` cases to cover normal and edge cases.
-
-    End your response clearly without repeating sections or extraneous text.
-    """
+End your response clearly without repeating sections or extraneous text.
+"""
     response = generator(prompt, max_new_tokens=1024, do_sample=False)[0]["generated_text"]
     return response.replace(prompt, "").strip()
 
