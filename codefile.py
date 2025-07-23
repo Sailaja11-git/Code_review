@@ -16,9 +16,13 @@ Review the following Python code:
 ```python
 {code}
 
-   Please provide your review in the following structured format with explicit section headers:
+  Please provide your review in the following structured format with explicit section headers.
 
-Explanation:
+Instructions:
+
+If the code is logically correct and well-named, include an Explanation describing what the function does.
+
+If the code has bugs, logical errors, or misleading names, skip the Explanation and directly start with the sections below.
 
 Bugs or issues:
 -Check for logical errors and exception handling
@@ -29,6 +33,8 @@ Bugs or issues:
 Improvements (style, readability, performance), including adding proper docstrings:
 
 Improved Code (complete corrected code snippet):
+
+Include complete corrected code with proper docstrings as per the improvements
 
 Unit Tests (example test cases):
 Please generate at least 5 diverse test cases covering:
