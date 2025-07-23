@@ -15,22 +15,39 @@ Review the following Python code:
 
 ```python
 {code}
+Please provide your review in the following structured format using the following instructions:
 
-  Please provide your review in the following structured format with explicit section headers.
+Explanation:
 
-Instructions:
+Briefly explain what the code is intended to do.
 
-If the code is logically correct and well-named, include an Explanation describing what the function does.
+Explain the logic and functionality as written, even if it contains mistakes.
 
-If the code has bugs, logical errors, or misleading names, skip the Explanation and directly start with the sections below.
+Bugs or Issues:
 
-Bugs or issues:
--Check for logical errors and exception handling
--Detect mismatch between function names, variable names, and the actual operations they perform.
--Flag misleading names or comments
--Highlight any potential runtime errors
+Clearly list all bugs, logical errors, and issues in the code.
 
-Improvements (style, readability, performance), including adding proper docstrings:
+If mistakes exist, explain how they lead to incorrect behavior or potential runtime errors.
+
+Specifically check for:
+
+Logical errors
+
+Missing or incorrect exception handling
+
+Function or variable names that do not match the actual operations
+
+Misleading comments or docstrings
+
+Any potential runtime failures or edge case problems
+
+Improvements (Style, Readability, Performance):
+
+Suggest improvements such as better naming, formatting, or efficiency.
+
+Include suggestions to add or correct docstrings.
+
+Mention any structural enhancements like input validation or type hints if applicable.
 
 Improved Code (complete corrected code snippet):
 
