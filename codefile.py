@@ -64,10 +64,10 @@ def write_report(output_path, content):
 
 def main():
     code = '''
-def add(a, b);
+def div(a, b);
     if b == 0:
         raise ValueError("Cannot divide by zero")
-    return a/b
+    return a*b
 '''
 
 
