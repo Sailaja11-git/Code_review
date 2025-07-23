@@ -15,50 +15,37 @@ Review the following Python code:
 
 ```python
 {code}
-Please follow this strict format in your response:
-1. Syntax Check:
-If there are any syntax or structural errors, list them clearly.
 
-Then, assume you fixed them and continue reviewing.
+   Please provide your review in the following structured format with explicit section headers:
 
-2. Bugs or Issues:
-Point out logical mistakes, incorrect operations, exception handling issues.
+Explanation what input code does:
 
-Mention if function or variable names don’t match their purpose.
+Bugs or issues:
+-Check for logical errors and exception handling
+-Detect mismatch between function names, variable names, and the actual operations they perform.
+-Flag misleading names or comments
+-Highlight any potential runtime errors
 
-Note misleading comments or documentation.
+Improvements (style, readability, performance), including adding proper docstrings:
 
-Detect any potential runtime errors.
+Improved Code (complete corrected code snippet):
 
-3. Improvements:
-Suggest improvements for readability, maintainability, and performance.
+Explanation after improved code :
 
-Include missing or unclear docstrings and type hints.
+Unit Tests (example test cases):
+Please generate at least 5 diverse test cases covering:
+- Normal input values
+- Edge cases (e.g., zero, negative numbers)
+- Invalid input handling
+- Floating point behavior
+- Exception conditions
+- Include at least 3 test cases
+- Cover normal, edge, and exception cases
 
-Suggest better naming and any required refactoring.
 
-4. Improved Code:
-Provide the fully corrected version of the code.
+Include them using Python's `unittest` framework or simple `assert` statements.
 
-Include complete docstrings for each function.
-
-Ensure code is ready for production.
-
-5. Explanation:
-Explain how the improved code works.
-
-Highlight how it resolves the issues found earlier.
-
-6. Unit Tests:
-Provide at least 5 test cases using Python unittest or assert statements.
-
-Test normal input, edge cases, exceptions, and floating-point inputs.
-
-Ensure coverage of logic and error handling.
-
-Please follow this structure strictly and don’t skip any section, even if code is valid. Always explain the reasoning behind your fixes.
-
-Begin your review now.
+End your response clearly without repeating sections or extraneous text.
 """
     response = generator(prompt, max_new_tokens=1024, do_sample=False)[0]["generated_text"]
     return response.replace(prompt, "").strip()
@@ -82,7 +69,7 @@ def main():
 def div(a, b);
     if b == 0:
         raise ValueError("Cannot divide by zero")
-    return a*b
+    return a/b
 '''
 
 
