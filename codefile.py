@@ -18,17 +18,23 @@ Review the following Python code:
 
   Please provide your review in the following structured format with explicit section headers.
 
-Instructions:
+Explanation:
 
-If the code is logically correct and well-named, include an Explanation describing what the function does.
-
-If the code has bugs, logical errors, or misleading names, skip the Explanation and directly start with the sections below.
+Only include this section if the code is correct and does not have any critical bugs or misleading logic.
 
 Bugs or issues:
--Check for logical errors and exception handling
--Detect mismatch between function names, variable names, and the actual operations they perform.
--Flag misleading names or comments
--Highlight any potential runtime errors
+
+If there are any mistakes in the code, explain that these mistakes lead to the following bugs or issues:
+
+Logical errors or incorrect behavior
+
+Missing or incorrect exception handling
+
+Mismatch between function names, variable names, and the actual operations they perform
+
+Misleading comments or docstrings
+
+Any potential runtime errors
 
 Improvements (style, readability, performance), including adding proper docstrings:
 
