@@ -70,7 +70,7 @@ def write_report(output_path, content):
 
 
 def main():
-    input_file = r"C:\Users\zrkasia\Desktop\Code_Review_agent\input"
+    input_file = r"C:\Users\zrkasia\Desktop\Code_Review_agent\input.py"
 
     # Read code from the input file
     try:
