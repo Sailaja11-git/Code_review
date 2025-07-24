@@ -74,10 +74,11 @@ def main():
 
     # Read code from the input file
     try:
-        with open(input_file, "r") as f:
-            code = f.read()
+        with open(input_file, "r") as file:
+            code = file.read()  # Make sure to store the file contents in 'code' variable
+            print("Code read successfully.")
     except FileNotFoundError:
-        print(f"Error: {input_file} not found.")
+        print(f"Error: The file at {input_file} was not found. Please check the path and file name.")
         return
 
     # Check syntax
@@ -108,8 +109,9 @@ def main():
             f"{review_text}"
         )
 
-    write_report("review_report.md", content)
-    print("Review completed. See 'review_report.md'")
+    output_path = "review_report.md"
+    write_report(output_path, content)
+    print(f"Review completed. See '{output_path}'")
 
 
 def clean_review_text(text):
