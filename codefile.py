@@ -72,6 +72,7 @@ def write_report(output_path, content):
 def main():
     input_file = "C:/Users/zrkasia/Desktop/Code_Review_agent/input.py"
 
+    # Read code from the input file
     try:
         with open(input_file, "r") as f:
             code = f.read()
@@ -79,8 +80,10 @@ def main():
         print(f"Error: {input_file} not found.")
         return
 
+    # Check syntax
     syntax_ok, syntax_err = check_syntax(code)
 
+    # Generate review using LLM
     try:
         review_text = generate_review(code)
         review_text = clean_review_text(review_text)
@@ -88,6 +91,7 @@ def main():
         tb = traceback.format_exc()
         review_text = f"Code review failed during AI analysis.\n\n```\n{tb}\n```"
 
+    # Prepare final markdown report
     if not syntax_ok:
         content = (
             f"# Syntax Error Detected\n\n"
