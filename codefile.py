@@ -72,11 +72,9 @@ def write_report(output_path, content):
 def main():
     code = '''
 def mul(a, b);
-    if b == 0:
-        raise ValueError("Cannot divide by zero")
-    return a/b
+    mult = a*b
+    return mult
 '''
-
 
     syntax_ok, syntax_err = check_syntax(code)
 
