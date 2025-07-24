@@ -68,9 +68,8 @@ def write_report(output_path, content):
     with open(output_path, "w") as f:
         f.write(content)
 
-
 def main():
-    input_file = r"C:\Users\zrkasia\Desktop\input.txt"
+    input_file = r"C:\Users\zrkasia\Desktop\input.txt"  # Corrected path
 
     # Read code from the input file
     try:
@@ -79,6 +78,7 @@ def main():
     except FileNotFoundError:
         print(f"Error: The file at {input_file} was not found. Please check the path and file name.")
         return
+
 
     # Check syntax
     syntax_ok, syntax_err = check_syntax(code)
