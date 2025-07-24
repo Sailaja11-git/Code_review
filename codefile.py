@@ -11,96 +11,47 @@ def generate_review(code):
     generator = pipeline("text-generation", model=model, tokenizer=tokenizer, device_map="auto")
 
     prompt = f"""
-   
 Review the following Python code:
 
 ```python
 {code}
-````
+Please provide your review in the following structured format with explicit section headers:
 
-Please provide your review in the following structured format using hyphenated bullet points under each heading:
 
----
+Explanation of what the input code does:
 
-# Syntax Error Detected (if any)
+-Describe clearly what the function claims to do based on its name and docstring (if any).
+-Then describe what it actually does based on the code logic.
 
-* If there is a syntax error, provide:
+Bugs or issues:
+-Check for logical errors and exception handling
+- If function name and operation mismatch, correct both consistently in improved code.
+-Detect mismatch between function names, variable names, and the actual operations they perform.
+-Flag misleading names or comments
+-Highlight any potential runtime errors
 
-  * The **exact error message**
-  * The **line of code** causing the issue
-  * A short **explanation** of what went wrong
+Improvements (style, readability, performance), including adding proper docstrings:
 
----
+Improved Code (complete corrected and logically consistent code snippet):
 
-## Explanation of what the input code does:
-
-* Describe what the function is *intended* to do based on its name and docstring (if present).
-* Explain what the function actually *does* based on the code logic.
-
----
-
-## Bugs or Issues:
-
-* Point out any **syntax or logical errors**
-* Mention if the function name does not match what the function actually does.
-* Highlight any **misleading names, poor variable naming, or comments**
-* Flag **any potential runtime errors or unhandled edge cases**
-
----
-
-## Improvements (style, readability, performance), including adding proper docstrings:
-
-* Suggest improvements for:
-
-  * Code clarity
-  * Naming conventions
-  * Exception handling
-  * Code efficiency
-  * Docstring quality
-
----
-
-## Improved Code (complete corrected and logically consistent code snippet):
-
-* Provide the full improved version of the function with:
-
-  * Corrected logic
-  * Proper variable names
-  * Docstrings explaining the function’s purpose, parameters, and return value
-  * Any necessary type checks and exception handling
-
----
-
-## Explanation after Improved Code:
-
-* Explain how the corrected code:
-
-  * Fixes the original problems
-  * Better aligns with its intended behavior
-  * Is more robust, readable, or maintainable
-
+Explanation after improved code:
+-Explain how the corrected code now behaves properly and aligns with its purpose.
 
 Unit Tests (example test cases):
 Please generate at least 5 diverse test cases covering:
+- Normal input values
+- Edge cases (e.g., zero, negative numbers)
+- Invalid input handling
+- Floating point behavior
+- Exception conditions
+- Include at least 3 test cases
+- Cover normal, edge, and exception cases
 
-Normal input values
 
-Edge cases (e.g., zero, negative numbers)
+Include them using Python's `unittest` framework or simple `assert` statements.
 
-Invalid input handling
-
-Floating point behavior
-
-Exception conditions
-
-Include at least 3 test cases
-
-Cover normal, edge, and exception cases
-
-Include them using Python's unittest framework or simple assert statements.
-
-    End your response clearly without repeating sections or extraneous text.
-    """
+End your response clearly without repeating sections or extraneous text.
+"""
     response = generator(prompt, max_new_tokens=1024, do_sample=False)[0]["generated_text"]
     return response.replace(prompt, "").strip()
 
