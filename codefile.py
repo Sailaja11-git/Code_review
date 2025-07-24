@@ -70,13 +70,12 @@ def write_report(output_path, content):
 
 
 def main():
-    input_file = r"C:\Users\zrkasia\Desktop\Code_Review_agent\input.txt"
+    input_file = r"C:\Users\zrkasia\Desktop\Code_Review_agent\input"
 
     # Read code from the input file
     try:
-        with open(input_file, "r") as file:
-            code = file.read()  # Make sure to store the file contents in 'code' variable
-            print("Code read successfully.")
+        with open(input_file, "r", encoding="utf-8") as file:
+            code = file.read()
     except FileNotFoundError:
         print(f"Error: The file at {input_file} was not found. Please check the path and file name.")
         return
@@ -112,6 +111,7 @@ def main():
     output_path = "review_report.md"
     write_report(output_path, content)
     print(f"Review completed. See '{output_path}'")
+
 
 
 def clean_review_text(text):
