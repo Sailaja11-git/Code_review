@@ -67,17 +67,26 @@ def check_syntax(code):
 def write_report(output_path, content):
     with open(output_path, "w") as f:
         f.write(content)
+import os
 
 def main():
-    input_file = "input.txt"  # Corrected path
+    current_dir = os.getcwd()
+    input_file = os.path.join(current_dir, "input.txt")
+    print(f"🔍 Looking for file at: {input_file}")
 
-    # Read code from the input file
+    if not os.path.exists(input_file):
+        print(f"❌ Error: The file at {input_file} was not found.")
+        return
+
     try:
         with open(input_file, "r", encoding="utf-8") as file:
             code = file.read()
-    except FileNotFoundError:
-        print(f"Error: The file at {input_file} was not found. Please check the path and file name.")
+    except Exception as e:
+        print(f"❌ Failed to read the file: {e}")
         return
+
+    print("✅ File loaded successfully!")
+    # continue...
 
 
     # Check syntax
