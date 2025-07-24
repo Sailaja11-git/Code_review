@@ -15,44 +15,24 @@ Review the following Python code:
 
 ```python
 {code}
-Please provide your review in the following structured format with explicit section headers:
+   Please provide your review in the following structured format with explicit section headers:
 
 
 Explanation of what the input code does:
-Clearly describe:
 
--What the function appears to be doing (based on its name and any docstring).
--What the function actually does, line by line, based on code logic.
--Explicitly call out if there’s a mismatch between function name and behavio
+-Describe clearly what the function claims to do based on its name and docstring (if any).
+-Then describe what it actually does based on the code logic.
 
 Bugs or issues:
--Syntax errors or exceptions
-
--Logical mismatches between function name and operation
-
--Incorrect or misleading variable names or comments
-
--Unhandled edge cases (e.g., zero division, negative inputs)
-
--Missing or unclear error handling
-
--Any runtime issues or unexpected behavior
+-Check for logical errors and exception handling
+- If function name and operation mismatch, correct both consistently in improved code.
+-Detect mismatch between function names, variable names, and the actual operations they perform.
+-Flag misleading names or comments
+-Highlight any potential runtime errors
 
 Improvements (style, readability, performance), including adding proper docstrings:
--Improve naming, style, structure
-
--Ensure function name matches operation
-
--Add proper error handling and type checks
-
--Add a clean, complete docstring
 
 Improved Code (complete corrected and logically consistent code snippet):
--Include the fully corrected version of the code
-
--Ensure logic, naming, and intent are now aligned
-
-
 
 Explanation after improved code:
 -Explain how the corrected code now behaves properly and aligns with its purpose.
