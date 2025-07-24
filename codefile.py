@@ -75,7 +75,7 @@ def print_fibonacci(n):
     a, b = 1, 1
     for _ in range(q):
         print(a, end='*')
-        a, b = a+b, b
+        a, b = b, a
 '''
 
     syntax_ok, syntax_err = check_syntax(code)
