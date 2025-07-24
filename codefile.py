@@ -70,13 +70,13 @@ def write_report(output_path, content):
 
 
 def main():
-    code = '''
-def print_fibonacci(n):
-    a, b = 1, 1
-    for _ in range(q):
-        print(a, end='*')
-        a, b = a+b, b
-'''
+    input_file = "C:\Users\zrkasia\Desktop\Code_Review_agent\input.py"
+    try:
+        with open(input_file, "r") as f:
+            code = f.read()
+    except FileNotFoundError:
+        print(f"Error: {input_file} not found.")
+        return
 
     syntax_ok, syntax_err = check_syntax(code)
 
