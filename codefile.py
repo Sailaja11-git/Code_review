@@ -67,32 +67,19 @@ def check_syntax(code):
 def write_report(output_path, content):
     with open(output_path, "w") as f:
         f.write(content)
-import os
+
 
 def main():
-    current_dir = os.getcwd()
-    input_file = os.path.join(current_dir, "input.txt")
-    print(f"🔍 Looking for file at: {input_file}")
+    code = '''
+def print_fibonacci(n):
+    a, b = 1, 1
+    for _ in range(q):
+        print(a, end='*')
+        a, b = a+b, b
+'''
 
-    if not os.path.exists(input_file):
-        print(f"❌ Error: The file at {input_file} was not found.")
-        return
-
-    try:
-        with open(input_file, "r", encoding="utf-8") as file:
-            code = file.read()
-    except Exception as e:
-        print(f"❌ Failed to read the file: {e}")
-        return
-
-    print("✅ File loaded successfully!")
-    # continue...
-
-
-    # Check syntax
     syntax_ok, syntax_err = check_syntax(code)
 
-    # Generate review using LLM
     try:
         review_text = generate_review(code)
         review_text = clean_review_text(review_text)
@@ -100,7 +87,6 @@ def main():
         tb = traceback.format_exc()
         review_text = f"Code review failed during AI analysis.\n\n```\n{tb}\n```"
 
-    # Prepare final markdown report
     if not syntax_ok:
         content = (
             f"# Syntax Error Detected\n\n"
@@ -117,10 +103,8 @@ def main():
             f"{review_text}"
         )
 
-    output_path = "review_report.md"
-    write_report(output_path, content)
-    print(f"Review completed. See '{output_path}'")
-
+    write_report("review_report.md", content)
+    print("Review completed. See 'review_report.md'")
 
 
 def clean_review_text(text):
