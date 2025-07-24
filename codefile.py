@@ -69,7 +69,7 @@ def write_report(output_path, content):
         f.write(content)
 
 def main():
-    input_file = r"C:\Users\zrkasia\Desktop\input.txt"  # Corrected path
+    input_file = "input.txt"  # Corrected path
 
     # Read code from the input file
     try:
