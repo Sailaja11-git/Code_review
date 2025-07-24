@@ -72,8 +72,10 @@ def write_report(output_path, content):
 def main():
     code = '''
 def mul(a, b);
-    mult = a*b
-    return mult
+    if b =! 0:
+    retutn mult = a*b
+    else:
+    retun print(indefinite)
 '''
 
     syntax_ok, syntax_err = check_syntax(code)
