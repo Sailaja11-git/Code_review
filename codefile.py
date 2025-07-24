@@ -71,11 +71,11 @@ def write_report(output_path, content):
 
 def main():
     code = '''
-def mul(a, b);
-    if b =! 0:
-    retutn mult = a*b
-    else:
-    retun print(indefinite)
+def print_fibonacci(n):
+    a, b = 1, 1
+    for _ in range(q):
+        print(a, end='*')
+        a, b = a+b, b
 '''
 
     syntax_ok, syntax_err = check_syntax(code)
