@@ -71,7 +71,7 @@ def write_report(output_path, content):
 
 def main():
     code = '''
-def print_fibonacci(n);
+def print_fibonacci(n):
     a, b = 1, 1
     for _ in range(q):
         print(a, end='*')
