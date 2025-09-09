@@ -71,11 +71,62 @@ def write_report(output_path, content):
 
 def main():
     code = '''
-def print_fibonacci(n):
-    a, b = 1, 1
-    for _ in range(q):
-        print(a, end='*')
-        a, b = b, a
+import time
+from enmutils.lib import log
+from enmutils_int.lib.profile_flows.common_flows.common_flow import GenericFlow
+from enmutils_int.lib.em import get_profile_users_nodes, retrieve_poids, validate_sessions, task_set
+from enmutils_int.lib.services.deployment_info_helper_methods import is_scs_deployment, is_transport_network
+ 
+ 
+class EM01Flow(GenericFlow):
+ 
+    SUCCESSFUL_NODES = []
+    POIDS = []
+ 
+    def execute_flow(self):
+        """
+        Executes the flow for the profile
+        """
+        self.state = "RUNNING"
+        users, configured_nodes = get_profile_users_nodes(self)
+        if is_scs_deployment() and is_transport_network():
+            users = users[:18]
+            log.logger.debug("SCS + transport: limiting users to 18")
+ 
+        log.logger.debug("Users:{0}, Nodes:{1}".format(
+            len(users), [node.node_name for node in configured_nodes]
+        ))
+ 
+        self.download_tls_certs(users)
+ 
+        while self.keep_running():
+            self.sleep_until_time()
+            try:
+                if len(self.POIDS) < len(users):
+                    self.POIDS.extend(retrieve_poids(self, configured_nodes))
+ 
+                user_nodes = list(zip(users, set(self.POIDS)))
+                for i in range(0, len(user_nodes), self.PARALLEL_SESSIONS_LAUNCH):
+                    self.create_and_execute_threads(
+                        user_nodes[i:i + self.PARALLEL_SESSIONS_LAUNCH],
+                        len(user_nodes),
+                        func_ref=task_set,
+                        args=[self]
+                    )
+                    log.logger.debug("Completed opening {0} sessions".format(
+                        min(i + self.PARALLEL_SESSIONS_LAUNCH, len(user_nodes))
+                    ))
+ 
+                time.sleep(600)
+                validate_sessions(users)
+            except Exception as e:
+                self.add_error_as_exception(e)
+            finally:
+                try:
+                    for user in users:
+                        user.remove_session()
+                except Exception as e:
+                    self.add_error_as_exception(e)
 '''
 
     syntax_ok, syntax_err = check_syntax(code)
