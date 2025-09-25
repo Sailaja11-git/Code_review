@@ -1,0 +1,41 @@
+name: AI Code Review Report
+
+on:
+  pull_request:
+    paths:
+      - '**.py'   # Run only if Python code files are changed
+      - '.github/workflows/**'  # Also run if workflow file changes
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install transformers torch accelerate
+
+    - name: Run AI Code Review
+      run: |
+        echo "## 🔍 AI Code Review Report" > review_report.md
+        if python codefile.py --path codefile.py --output review_report.md; then
+          echo "✅ Code review completed successfully." >> review_report.md
+        else
+          echo "❌ Code review script failed. See the above error." >> review_report.md
+        fi
+
+    - name: Always Upload Review Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: ai-review-report
+        path: review_report.md
