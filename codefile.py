@@ -129,6 +129,7 @@ class EM01Flow(GenericFlow):
                     self.add_error_as_exception(e)
 '''
 
+
     syntax_ok, syntax_err = check_syntax(code)
 
     try:
